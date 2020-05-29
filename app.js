@@ -21,29 +21,35 @@ electricCarChargersApi.then(response => response.json())
 
 .then(function analyse(data) {
 
-    data.forEach(function findCloseStation(stationArray){
+    data.forEach(function findCloseStation(allStations){
 
-        closeStations = [];
+        let closeStations = [];
+        
       
-        if (stationArray.Station_lat.toFixed(2) === latitude.toFixed(2) && stationArray.Station_lng.toFixed(2) === longitude.toFixed(2)) {
-            closeStations.push(stationArray);
-            //console.log(closeStations);
+        if (allStations.Station_lat.toFixed(2) === latitude.toFixed(2) && allStations.Station_lng.toFixed(2) === longitude.toFixed(2)) {
+            closeStations.push(allStations);
+
+            console.log(closeStations);
+            
         } 
-            closeStations.forEach(function(properties) {
+
+        //const closeStations = new Set(closeStationsRaw);
+        
+    
+            closeStations.forEach(function(objects) {
+
               //console.log(closestation);
               let body = document.querySelector("body");
               let name_paragraph = document.createElement("p");
-              name_paragraph.innerText= `Station ${properties.Station_name}`;
+              name_paragraph.innerText= `Station ${objects.Station_name}`;
               let address_paragraph = document.createElement("p");
-              address_paragraph.innerText= `Location: ${properties.Station_address}`;
-              let address_paragraph = document.createElement("p");
+              address_paragraph.innerText= `Location: ${objects.Station_address}`;
               body.appendChild(name_paragraph);
               body.appendChild(address_paragraph);
             
             });
             
           })
-        //else console.log("error");
 
     });
 
